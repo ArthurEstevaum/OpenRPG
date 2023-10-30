@@ -43,4 +43,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Returns user role.
+     * @return bool
+     */
+    public function isAdmin() : bool
+    {
+        return $this->admin;
+    }
 }
