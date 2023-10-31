@@ -35,4 +35,14 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'name' => 'Arthur Estevão',
+            'admin' => 1,
+            'email' => env('ADMIN_EMAIL'),
+            'password' => env('ADMIN_PASSWORD')
+        ]);
+    }
 }
