@@ -21,8 +21,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            TabletopSeeder::class,
             SystemSeeder::class,
+            ScenarioSeeder::class,
+            TabletopSeeder::class,
         ]);
     }
 }

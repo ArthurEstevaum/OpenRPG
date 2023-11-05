@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scenarios', function (Blueprint $table) {
+        Schema::create('tabletop_user', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained(table:'users')->cascadeOnDelete();
+            $table->foreignId('tabletop_id')->constrained(table:'tabletops')->cascadeOnDelete();
             $table->timestamps();
-            $table->string('name', 50);
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scenarios');
+        Schema::dropIfExists('tabletops_users');
     }
 };
