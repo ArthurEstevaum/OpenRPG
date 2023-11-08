@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scenarios', function (Blueprint $table) {
+        Schema::create('subgenres', function (Blueprint $table) {
             $table->id();
+            $table->string("name", 50);
             $table->timestamps();
-            $table->string('name', 50);
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scenarios');
+        Schema::dropIfExists('subgenres');
     }
 };

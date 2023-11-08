@@ -22,7 +22,7 @@ class SystemSeeder extends Seeder
             ['name'=> 'Starfinder', 'genre'=> 'Sci-fi', 'created_at' => now(), 'updated_at' => now()],
             ['name'=> 'Cyberpunk 2077', 'genre'=> 'Sci-fi', 'created_at' => now(), 'updated_at' => now()],
             ['name'=> 'Tephra', 'genre'=> 'Steampunk', 'created_at' => now(), 'updated_at' => now()],
-            ['name'=> 'Vampire Msasquerade', 'genre'=> 'Dark Fantasy', 'created_at' => now(), 'updated_at' => now()],
+            ['name'=> 'Vampire Masquerade', 'genre'=> 'Dark Fantasy', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Call of Cthulhu', 'genre' => 'Dark Fantasy', 'created_at' => now(), 'updated_at' => now()]
         ];
         

@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('subgenre_tabletop', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('subgenre_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('tabletop_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
-            $table->string("name", 100);
-            $table->string("description", 1000);
-            $table->string("city", 100);
-            $table->boolean("presencial");
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('subgenres_tabletops');
     }
 };

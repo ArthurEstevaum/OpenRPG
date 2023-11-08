@@ -21,8 +21,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            EventSeeder::class,
             SystemSeeder::class,
+            ScenarioSeeder::class,
+            SubgenresSeeder::class,
+            TabletopSeeder::class,
         ]);
     }
 }

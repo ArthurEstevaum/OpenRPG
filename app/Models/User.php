@@ -5,6 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -51,5 +54,23 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin() : bool
     {
         return $this->admin;
+    }
+
+    /**
+     * The relation that returns the tabletops which the user owns.
+     * @return HasMany
+     */
+    public function owns_tabletops() : HasMany
+    {
+        return $this->hasMany(Tabletop::class, 'owner_user_id');
+    }
+
+    /**
+     * The relation that returns all the tabletops which the user belongs.
+     * @return BelongsToMany
+     */
+    public function tabletops() : BelongsToMany
+    {
+        return $this->belongsToMany(related:Tabletop::class)->withTimestamps();
     }
 }
