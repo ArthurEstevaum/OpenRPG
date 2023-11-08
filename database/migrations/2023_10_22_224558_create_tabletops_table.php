@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string("description", 1000);
             $table->string("level", 50);
             $table->string("genre", 50);
-            $table->string("subgenre", 50);
             $table->string("city", 100);
             $table->string("province", 100);
             $table->boolean("presencial");

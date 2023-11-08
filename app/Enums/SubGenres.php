@@ -14,6 +14,8 @@ enum SubGenres : string implements ValueReturner
     case GUERRA = "Guerra";
     case PIRATARIA = "Pirataria";
 
+    case EXPLORACAO = "Exploração";
+
     /**
      * Returns an array with keys equal to each enum case, and the array value
      * equal to enum case corresponding string.

@@ -31,11 +31,20 @@ class Tabletop extends Model
     }
 
     /**
-     * The relation that returns all the users which belongs to the tabletops
+     * The relation that returns all the users which belongs to the tabletop
      * @return BelongsToMany
      */
     public function users() : BelongsToMany
     {
         return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
+    /**
+     * Returns all the subgenres which belongs to the tabletop
+     * @return BelongsToMany
+     */
+    public function subgenres() : BelongsToMany
+    {
+        return $this->belongsToMany(Subgenre::class)->withTimestamps();
     }
 }

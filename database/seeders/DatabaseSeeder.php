@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SystemSeeder::class,
             ScenarioSeeder::class,
+            SubgenresSeeder::class,
             TabletopSeeder::class,
         ]);
     }

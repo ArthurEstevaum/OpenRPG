@@ -4,8 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Tabletop;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Subgenre;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TabletopSeeder extends Seeder
 {
@@ -20,5 +21,19 @@ class TabletopSeeder extends Seeder
         ]), 'owner_user')
         ->has(User::factory()->count(4))
         ->create();
+
+        $tabletops = Tabletop::all();
+        $firstSubgenre = DB::table('subgenres')->first();
+        $lastSubgenre = DB::table('subgenres')->orderBy('id','desc')->first();
+        $idsArray = range($firstSubgenre->id, $lastSubgenre->id);
+
+        foreach($tabletops as $tabletop) {
+            //shuffle the ids array, then assign two Ids to the array.
+            //So, two random ids are assigned to each tabletop
+            shuffle($idsArray);
+            $twoRandomIds = array_slice($idsArray, 0, 2);
+
+            $tabletop->subgenres()->sync($twoRandomIds);
+        }
     }
 }

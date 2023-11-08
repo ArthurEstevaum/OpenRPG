@@ -50,7 +50,6 @@ class TabletopFactory extends Factory
             'horary' => fake()->time(),
             'next_session' => fake()->dateTimeBetween('+0 days','+1 years'),
             'genre' => Genres::getRandomValue(),
-            'subgenre' => SubGenres::getRandomValue(),
             'level' => Levels::getRandomValue(),
             'province' => Provinces::getRandomValue(),
         ];
