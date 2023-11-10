@@ -1,5 +1,1 @@
-<pre>
-    @php
-        var_dump($user);
-    @endphp
-</pre>
+<a href="{{route('auth.github')}}">Login with github</a>
