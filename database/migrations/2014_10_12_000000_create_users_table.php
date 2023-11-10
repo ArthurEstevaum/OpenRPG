@@ -18,9 +18,9 @@ return new class extends Migration
             $table->boolean('admin')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('github_id')->nullable();
-            $table->string('github_token')->nullable();
-            $table->string('github_refresh_token')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->string('provider_avatar')->nullable();
+            $table->string('provider_name')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

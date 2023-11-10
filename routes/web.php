@@ -47,20 +47,21 @@ Route::middleware('auth')->group(function () {
   da segunda vez em diante, a autenticação é automática
   e o usuário é redirecionado.
  */
-Route::get('/auth/github/redirect', function () {
-    return Socialite::driver('github')->redirect();
-})->name('auth.github');
+Route::get('/auth/{provider}/redirect', function (string $provider) {
+    return Socialite::driver($provider)->redirect();
+});
  
-Route::get('/auth/github/callback', function () {
-    $githubUser = Socialite::driver('github')->user();
+Route::get('/auth/{provider}/callback', function (string $provider) {
+    $providerUser = Socialite::driver($provider)->user();
 
     $user = User::updateOrCreate([
-        'github_id' => $githubUser->id,
+        'email' => $providerUser->email,
     ], [
-        'name' => $githubUser->name,
-        'email' => $githubUser->email,
-        'github_token' => $githubUser->token,
-        'github_refresh_token' => $githubUser->refreshToken
+        'provider_id' => $providerUser->id,
+        'name' => $providerUser->name,
+        'email' => $providerUser->email,
+        'provider_avatar' => $providerUser->avatar,
+        'provider_name' => $provider
     ]);
 
     Auth::login($user);
@@ -68,7 +69,7 @@ Route::get('/auth/github/callback', function () {
     return redirect('/dashboard');
  
     // $user->token
-})->name('auth.github.callback');
+})->name('auth.social.callback');
 
 Route::middleware('admin')->group(function () {
     Route::get('/adminDashboard', function() {
