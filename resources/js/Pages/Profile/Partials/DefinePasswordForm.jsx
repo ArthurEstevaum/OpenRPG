@@ -6,20 +6,19 @@ import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function UpdatePasswordForm({ className = ''}) {
+export default function UpdatePasswordForm({ className = '' }) {
     const passwordInput = useRef();
     const currentPasswordInput = useRef();
 
     const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({
-        current_password: '',
         password: '',
         password_confirmation: '',
     });
 
-    const updatePassword = (e) => {
+    const definePassword = (e) => {
         e.preventDefault();
 
-        put(route('password.update'), {
+        put(route('password.define'), {
             preserveScroll: true,
             onSuccess: () => reset(),
             onError: (errors) => {
@@ -39,31 +38,17 @@ export default function UpdatePasswordForm({ className = ''}) {
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Update Password</h2>
+                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Defina a sua senha no aplicativo</h2>
 
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Ensure your account is using a long, random password to stay secure.
+                    Definindo uma nova senha, você pode fazer Login usando ela com seu email.
                 </p>
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Certifique-se de usar uma senha longa e aleatória para aumentar sua segurança.</p>
             </header>
 
-            <form onSubmit={updatePassword} className="mt-6 space-y-6">
+            <form onSubmit={definePassword} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="current_password" value="Current Password" />
-
-                    <TextInput
-                        id="current_password"
-                        ref={currentPasswordInput}
-                        value={data.current_password}
-                        onChange={(e) => setData('current_password', e.target.value)}
-                        type="password"
-                        className="block mt-1 w-full"
-                    />
-
-                    <InputError message={errors.current_password} className="mt-2" />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="password" value="New Password" />
+                    <InputLabel htmlFor="password" value="Senha" />
 
                     <TextInput
                         id="password"
@@ -79,7 +64,7 @@ export default function UpdatePasswordForm({ className = ''}) {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                    <InputLabel htmlFor="password_confirmation" value="Confirmar senha" />
 
                     <TextInput
                         id="password_confirmation"
@@ -94,7 +79,7 @@ export default function UpdatePasswordForm({ className = ''}) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <PrimaryButton disabled={processing}>Salvar</PrimaryButton>
 
                     <Transition
                         show={recentlySuccessful}

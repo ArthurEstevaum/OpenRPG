@@ -6,6 +6,8 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import GoogleLoginButton from '@/Components/GoogleLoginButton';
+import GithubLoginButton from '@/Components/GithubLoginButton';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -27,10 +29,16 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <GuestLayout>
-            <Head title="Log in" />
+        <GuestLayout >
+            <div className="mb-6 mt-3 space-y-4 font-medium text-sm text-center w-10/12 m-auto text-gray-900">
+                <GithubLoginButton>Login with Github</GithubLoginButton>
+                <GoogleLoginButton>Login with Google</GoogleLoginButton>
+            </div>      
+            <Head title="Login" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+
+            
 
             <form onSubmit={submit}>
                 <div>
@@ -73,7 +81,7 @@ export default function Login({ status, canResetPassword }) {
                             checked={data.remember}
                             onChange={(e) => setData('remember', e.target.checked)}
                         />
-                        <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+                        <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Lembrar de mim</span>
                     </label>
                 </div>
 
@@ -83,12 +91,12 @@ export default function Login({ status, canResetPassword }) {
                             href={route('password.request')}
                             className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                         >
-                            Forgot your password?
+                            Esqueceu sua senha?
                         </Link>
                     )}
 
                     <PrimaryButton className="ml-4" disabled={processing}>
-                        Log in
+                        Entrar
                     </PrimaryButton>
                 </div>
             </form>

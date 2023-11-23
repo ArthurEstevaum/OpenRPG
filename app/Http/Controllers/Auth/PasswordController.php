@@ -26,4 +26,21 @@ class PasswordController extends Controller
 
         return back();
     }
+    
+    public function define(Request $request) : RedirectResponse
+    {
+        $validated = $request->validate([
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+        if(!$request->user()->password) {
+            $request->user()->update([
+                'password' => Hash::make($validated['password']),
+            ]);
+
+            return redirect('/');
+        }
+
+        return redirect('/define-password')->with('error', 'A senha já está definida');
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProviderController;
 use App\Models\Tabletop;
 use App\Models\User;
 use Illuminate\Foundation\Application;
@@ -35,6 +36,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/define-password', function() {
+    return Inertia::render('Profile/DefinePassword');
+})->middleware(['auth'])->name('define-password');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -47,38 +52,15 @@ Route::middleware('auth')->group(function () {
   da segunda vez em diante, a autenticação é automática
   e o usuário é redirecionado.
  */
-Route::get('/auth/{provider}/redirect', function (string $provider) {
-    return Socialite::driver($provider)->redirect();
-});
- 
-Route::get('/auth/{provider}/callback', function (string $provider) {
-    $providerUser = Socialite::driver($provider)->user();
+Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 
-    $user = User::updateOrCreate([
-        'email' => $providerUser->email,
-    ], [
-        'provider_id' => $providerUser->id,
-        'name' => $providerUser->name,
-        'email' => $providerUser->email,
-        'provider_avatar' => $providerUser->avatar,
-        'provider_name' => $provider
-    ]);
-
-    Auth::login($user);
-
-    return redirect('/dashboard');
- 
-    // $user->token
-})->name('auth.social.callback');
+Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])
+->name('auth.social.callback');
 
 Route::middleware('admin')->group(function () {
     Route::get('/adminDashboard', function() {
         return 'Only admins can see that';
     })->name('admin.dashboard');
-});
-
-Route::get('/socialite', function () {
-    return view('sample');
 });
 
 require __DIR__.'/auth.php';

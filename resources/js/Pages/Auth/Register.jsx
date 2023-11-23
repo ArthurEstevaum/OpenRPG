@@ -5,6 +5,8 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import GithubLoginButton from '@/Components/GithubLoginButton';
+import GoogleLoginButton from '@/Components/GoogleLoginButton';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -29,6 +31,11 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
+
+            <div className="mb-6 mt-3 space-y-4 font-medium text-sm text-center w-10/12 m-auto text-gray-900">
+                <GithubLoginButton>Sign in with Github</GithubLoginButton>
+                <GoogleLoginButton>Sign in with Google</GoogleLoginButton>
+            </div>
 
             <form onSubmit={submit}>
                 <div>
