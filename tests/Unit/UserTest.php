@@ -44,6 +44,14 @@ class UserTest extends TestCase
         
         $tabletop = Tabletop::factory()->create(['owner_user_id' => $user->id]);
 
-        $this->assertInstanceOf(Tabletop::class, $user->owns_tabletops()->find(1));
+        $this->assertTrue($user->owns_tabletops()->get()->contains($tabletop));
+    }
+
+    public function test_user_belongs_to_many_tabletops() : void
+    {
+        $user = User::factory()->create();
+        $tabletop = User::factory()->create();
+
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $user->tabletops()->get());
     }
 }
