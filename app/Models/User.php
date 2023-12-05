@@ -56,6 +56,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function isAdmin() : bool
     {
+        if($this->admin == null) {
+            return false;
+        }
         return $this->admin;
     }
 

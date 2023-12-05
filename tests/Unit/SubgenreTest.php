@@ -2,6 +2,9 @@
 
 namespace Tests\Unit;
 
+use App\Models\Subgenre;
+use App\Models\Tabletop;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Schema;
@@ -20,5 +23,15 @@ class SubgenreTest extends TestCase
         $this->assertTrue(
             Schema::hasColumns('subgenres', ['id', 'name', 'created_at', 'updated_at'])
         );
+    }
+
+    public function test_subgenre_belongs_to_many_tabletops() : void
+    {
+        $user = User::factory()->create();
+
+        $tabletop = Tabletop::factory()->create(['owner_user_id' => $user->id]);
+        $subgenre = Subgenre::factory()->create();
+
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $subgenre->tabletops()->get());
     }
 }

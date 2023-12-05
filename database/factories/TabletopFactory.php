@@ -23,25 +23,8 @@ class TabletopFactory extends Factory
      */
     public function definition(): array
     {
-        /*$first and $latest variables serve for
-        fetch the first and latest ids from systems/scenarios table
-        since system model isn't able to have a factory
-        to make a relationship with tabletop factory*/
-
-        $firstSystem = DB::table('systems')->first();
-        $latestSystem = DB::table('systems')->orderBy('id', 'desc')->first();
-        $chosenSystem = fake()->numberBetween($firstSystem->id, $latestSystem->id);
-
-        //the first and latest scenario depends on random system choosed,
-        //so the scenario of the tabletop will correspond to it system.
-        $firstScenario = DB::table('scenarios')->where('system_id', '=', $chosenSystem)->first();
-        $latestScenario = DB::table('scenarios')->where('system_id', '=', $chosenSystem)
-        ->orderBy('id', 'desc')->first();
-
         return [
             'name' => fake()->word(),
-            'system_id' => $chosenSystem,
-            'scenario_id' => fake()->numberBetween($firstScenario->id, $latestScenario->id),
             'description' => fake()->text(1000),
             'city' => fake()->city(),
             'presencial' => fake()->boolean(),

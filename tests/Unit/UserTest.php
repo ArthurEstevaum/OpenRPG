@@ -4,11 +4,8 @@ namespace Tests\Unit;
 
 use App\Models\Tabletop;
 use App\Models\User;
-use Database\Seeders\ScenarioSeeder;
-use Database\Seeders\SystemSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
@@ -35,12 +32,6 @@ class UserTest extends TestCase
     public function test_user_owns_a_tabletop() : void
     {
         $user = User::factory()->create();
-
-        $systemSeeder = new SystemSeeder();
-        $systemSeeder->run();
-
-        $scenarioSeeder = new ScenarioSeeder();
-        $scenarioSeeder->run();
         
         $tabletop = Tabletop::factory()->create(['owner_user_id' => $user->id]);
 
@@ -50,8 +41,23 @@ class UserTest extends TestCase
     public function test_user_belongs_to_many_tabletops() : void
     {
         $user = User::factory()->create();
-        $tabletop = User::factory()->create();
+        
+        $tabletop = Tabletop::factory()->create(['owner_user_id' => $user->id]);
 
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $user->tabletops()->get());
+    }
+
+    public function test_is_admin_should_return_false_to_not_admin_users() : void
+    {
+        $user = User::factory()->create();
+
+        $this->assertNotTrue($user->isAdmin());
+    }
+
+    public function test_is_admin_should_return_true_to_admin_users() : void
+    {
+        $user = User::factory()->admin()->create();
+
+        $this->assertTrue($user->isAdmin());
     }
 }
