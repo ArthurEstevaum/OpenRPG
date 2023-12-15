@@ -16,9 +16,12 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user() && $request->user()->isAdmin()) {
-            return $next($request);
+        if(!Auth::user()) {
+            return redirect()->route('login');
+        } 
+        if(!$request->user()->isAdmin()) {
+            return abort(403, 'Acesso proibido: Você não tem permissão para acessar esse recurso.');
         }
-        return redirect('/');
+        return $next($request);
     }
 }

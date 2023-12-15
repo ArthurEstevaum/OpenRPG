@@ -7,24 +7,30 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Inertia\Testing\Assert;
+use Inertia\Testing\AssertableInertia;
 use Tests\TestCase;
 
-class SystemTest extends TestCase
+class SystemIndexTest extends TestCase
 {
+
+    use RefreshDatabase, WithFaker;
     /**
      * A basic feature test example.
      */
     public function test_admin_system_index_is_displayed(): void
     {
         $admin = User::factory()->admin()->create();
-        $systems = System::factory()->count(10);
+        $systems = System::factory()->count(100);
 
         $response = $this->actingAs($admin)->get('/admin/sistemas-de-jogo');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn (Assert $page) => $page
+        $response->assertInertia(fn (AssertableInertia $page) => $page
             ->component('Admin/System/Index')
-            ->has('system', 5)
+            ->has('systems', fn(AssertableInertia $page) => $page
+                ->where('meta.per_page', 4)
+                ->has('data')
+                ->etc())
         );
     }
 

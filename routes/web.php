@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SystemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
 use App\Models\Tabletop;
@@ -57,10 +58,13 @@ Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect'])
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])
 ->name('auth.social.callback');
 
-Route::middleware('admin')->group(function () {
-    Route::get('/adminDashboard', function() {
-        return 'Only admins can see that';
-    })->name('admin.dashboard');
+Route::controller(SystemController::class)
+    ->middleware('admin')
+    ->prefix('admin/sistemas-de-jogo')
+    ->name('admin.system.')->group(function() {
+        
+    Route::get('/', 'index')->name('index');
+
 });
 
 require __DIR__.'/auth.php';
