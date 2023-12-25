@@ -19,9 +19,9 @@ class IsAdmin
         if(!Auth::user()) {
             return redirect()->route('login');
         } 
-        if(!$request->user()->isAdmin()) {
-            return abort(403, 'Acesso proibido: Você não tem permissão para acessar esse recurso.');
+        if($request->user()->isAdmin()) {
+            return $next($request);
         }
-        return $next($request);
+        return abort(403, 'Acesso proibido: Você não tem permissão para acessar esse recurso.');
     }
 }

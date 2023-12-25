@@ -1,31 +1,18 @@
 import { useState, useEffect } from "react"
 import { Link, router } from "@inertiajs/react"
+import usePagination from "@/Hooks/usePagination"
 
 export default function Index({ systems }) {
 
-    const [systemList, setSystemList] = useState([])
-
-    useEffect(() => {
-        setSystemList((systemList) => [...systemList, ...systems.data])
-    }, [systems.data])
-
-    function loadMore() {
-        if(!systems.links.next) {
-            return
-        }
-        router.get(systems.links.next, {}, {
-            only: ['systems'],
-            preserveState: true,
-        })
-    }
+    const [data, loadMoreData] = usePagination(systems, 'systems')
 
         return (
         <div>
             <ul>
-                {systemList.map(system => <li className='text-xl' key={system.id}>{system.name}</li>)}
+                {data.map(system => <li className='text-xl' key={system.id}>{system.name}</li>)}
             </ul>
             
-            {systems.links.next && <button className='border-2 rounded-md p-3 m-auto border-blue-500 text-blue-500 text-4xl' onClick={loadMore}>Carregar mais</button>}
+            {systems.links.next && <button className='border-2 rounded-md p-3 m-auto border-blue-500 text-blue-500 text-4xl' onClick={loadMoreData}>Carregar mais</button>}
         </div>
     )
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\SystemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Middleware\IsAdmin;
 use App\Models\Tabletop;
 use App\Models\User;
 use Illuminate\Foundation\Application;
@@ -59,12 +60,11 @@ Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])
 ->name('auth.social.callback');
 
 Route::controller(SystemController::class)
-    ->middleware('admin')
     ->prefix('admin/sistemas-de-jogo')
+    ->middleware('admin')
     ->name('admin.system.')->group(function() {
         
-    Route::get('/', 'index')->name('index');
-
+    Route::get('/', 'index')->name('index')->middleware('admin');
 });
 
 require __DIR__.'/auth.php';
