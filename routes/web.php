@@ -64,7 +64,7 @@ Route::controller(SystemController::class)
     ->middleware('admin')
     ->name('admin.system.')->group(function() {
         
-    Route::get('/', 'index')->name('index')->middleware('admin');
+    Route::get('/', 'index')->name('index');
 });
 
 require __DIR__.'/auth.php';
