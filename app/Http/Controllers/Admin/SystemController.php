@@ -13,9 +13,21 @@ class SystemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $systems = System::paginate(4);
+        $search = $request->input('search');
+        $genreFilter = $request->input('genre-filter');
+
+        if(!$search) {
+            $systems = System::paginate(12);
+        } else {
+            $systems = System::search($search)
+            ->when($genreFilter, function($query, $genreFilter) {
+                $query->where('genre', $genreFilter);
+            })
+            ->paginate(12)
+            ->appends(['search' => $search, 'filter' => $genreFilter]);
+        }
 
         return Inertia::render('Admin/System/Index', [
             'systems' => SystemResource::collection($systems),

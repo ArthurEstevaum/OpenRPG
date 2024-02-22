@@ -6,7 +6,6 @@ use App\Models\System;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Inertia\Testing\Assert;
 use Inertia\Testing\AssertableInertia;
 use Tests\TestCase;
 
@@ -28,7 +27,7 @@ class SystemIndexTest extends TestCase
         $response->assertInertia(fn (AssertableInertia $page) => $page
             ->component('Admin/System/Index')
             ->has('systems', fn(AssertableInertia $page) => $page
-                ->where('meta.per_page', 4)
+                ->where('meta.per_page', 12)
                 ->has('data')
                 ->etc())
         );
