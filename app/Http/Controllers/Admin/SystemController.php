@@ -16,17 +16,13 @@ class SystemController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $genreFilter = $request->input('genre-filter');
 
         if(!$search) {
             $systems = System::paginate(12);
         } else {
             $systems = System::search($search)
-            ->when($genreFilter, function($query, $genreFilter) {
-                $query->where('genre', $genreFilter);
-            })
             ->paginate(12)
-            ->appends(['search' => $search, 'filter' => $genreFilter]);
+            ->appends(['search' => $search, 'query' => null]);
         }
 
         return Inertia::render('Admin/System/Index', [
