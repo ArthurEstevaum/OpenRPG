@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ScenarioController;
 use App\Http\Controllers\Admin\SystemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
@@ -63,6 +64,14 @@ Route::controller(SystemController::class)
     ->prefix('admin/sistemas-de-jogo')
     ->middleware('admin')
     ->name('admin.system.')->group(function() {
+        
+    Route::get('/', 'index')->name('index');
+});
+
+Route::controller(ScenarioController::class)
+    ->prefix('admin/cenarios-de-jogo')
+    ->middleware('admin')
+    ->name('admin.scenario.')->group(function() {
         
     Route::get('/', 'index')->name('index');
 });

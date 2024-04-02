@@ -2,6 +2,7 @@
 
 use App\Models\System;
 use App\Models\User;
+use App\Models\Scenario;
 
 return [
 
@@ -143,7 +144,11 @@ return [
             System::class => [
                 'filterableAttributes' => ['id', 'name', 'genre'],
                 'sortableAttributes' => ['created_at'],
-            ]
+            ],
+            Scenario::class => [
+                'filterableAttributes' => ['id', 'name', 'system'],
+                'sortableAttributes' => ['created_at'],
+            ],
         ],
     ],
 
