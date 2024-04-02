@@ -66,6 +66,8 @@ Route::controller(SystemController::class)
     ->name('admin.system.')->group(function() {
         
     Route::get('/', 'index')->name('index');
+    Route::get('/criar', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
 });
 
 Route::controller(ScenarioController::class)

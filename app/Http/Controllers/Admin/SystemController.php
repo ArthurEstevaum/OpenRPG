@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SystemResource;
 use App\Models\System;
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class SystemController extends Controller
 {
@@ -33,17 +36,17 @@ class SystemController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() : InertiaResponse
     {
-        //
+        return Inertia::render('Admin/System/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
-        //
+        return redirect(route('admin.system.index'));
     }
 
     /**
