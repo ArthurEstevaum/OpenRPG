@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\Genres;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SystemResource;
 use App\Models\System;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 
@@ -46,7 +49,17 @@ class SystemController extends Controller
      */
     public function store(Request $request) : RedirectResponse
     {
-        return redirect(route('admin.system.index'));
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'genre' => [Rule::enum(Genres::class), 'required'],
+        ]);
+
+        $system = System::create([
+            'name' => $validated['name'],
+            'genre' => $validated['genre'],
+        ]);
+
+        return redirect(route('admin.system.index'))->with('success', 'Sistema criado com sucesso');
     }
 
     /**

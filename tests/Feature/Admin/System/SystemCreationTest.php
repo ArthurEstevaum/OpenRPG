@@ -50,6 +50,7 @@ class SystemCreationTest extends TestCase
         ]);
 
         $response->assertRedirect('/admin/sistemas-de-jogo');
+        $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('systems', [
             'name' => 'test',
             'genre' => 'Medieval Fantasy',
@@ -66,15 +67,43 @@ class SystemCreationTest extends TestCase
         ]);
 
         $response->assertStatus(403);
+        $this->assertDatabaseMissing('systems', ['name' => 'test', 'genre' => 'Medieval Fantasy']);
     }
 
     public function test_system_validation_throws_error_when_invalid_genre_input() : void
     {
+        $admin = User::factory()->admin()->create();
+        $response = $this->actingAs($admin)->post('/admin/sistemas-de-jogo', [
+            'name' => 'test',
+            'genre' => 'aleatory genre',
+        ]);
 
+        $response->assertSessionHasErrors('genre');
+        $response->assertRedirect();
+        $this->assertDatabaseMissing('systems', ['name' => 'test', 'genre' => 'aleatory genre']);
     }
 
-    public function test_system_validation_throws_error_when_invalid_name_input() : void
+    public function test_system_validation_throws_error_when_null_genre_input() : void
     {
-        
+        $admin = User::factory()->admin()->create();
+        $response = $this->actingAs($admin)->post('/admin/sistemas-de-jogo', [
+            'name' => 'test',
+        ]);
+
+        $response->assertSessionHasErrors('genre');
+        $response->assertRedirect();
+        $this->assertDatabaseMissing('systems', ['name' => 'test']);
+    }
+
+    public function test_system_validation_throws_error_when_null_name_input() : void
+    {
+        $admin = User::factory()->admin()->create();
+        $response = $this->actingAs($admin)->post('/admin/sistemas-de-jogo', [
+            'genre' => 'Medieval Fantasy',
+        ]);
+
+        $response->assertSessionHasErrors('name');
+        $response->assertRedirect();
+        $this->assertDatabaseMissing('systems', ['name' => null, 'genre' => 'Medieval Fantasy']);
     }
 }

@@ -11,6 +11,8 @@ class System extends Model
 {
     use HasFactory, Searchable;
 
+    protected $fillable = ['name', 'genre'];
+
     public function tabletops() : HasMany
     {
         return $this->hasMany(Tabletop::class);

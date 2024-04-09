@@ -1,6 +1,9 @@
-import { useForm } from "@inertiajs/react"
+import InputSuccess from "@/Components/InputSuccess"
+import { useForm, usePage } from "@inertiajs/react"
 
 export default function Create() {
+
+    const { flash } = usePage().props
 
     const { data, setData, post, processing, errors } = useForm({
         name: '',
@@ -15,6 +18,7 @@ export default function Create() {
 
     return (
         <main>
+            <InputSuccess message={flash.success} />
             <form onSubmit={submit}>
                 
             </form>
