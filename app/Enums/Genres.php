@@ -5,10 +5,10 @@ use App\Interfaces\ValueReturner;
 
 enum Genres : string implements ValueReturner
 {
-    case MEDIEVAL_FANTASY = "Medieval Fantasy";
+    case MEDIEVAL_FANTASY = "Fantasia Medieval";
     case SCI_FI = "Sci-fi";
     case STEAMPUNK = "Steampunk";
-    case DARK_FANTASY = "Dark Fantasy";
+    case DARK_FANTASY = "Fantasia Sombria";
 
     /**
      * Returns an array with keys equal to each enum case, and the array value

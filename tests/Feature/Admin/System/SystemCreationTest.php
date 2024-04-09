@@ -46,14 +46,14 @@ class SystemCreationTest extends TestCase
         $admin = User::factory()->admin()->create();
         $response = $this->actingAs($admin)->post('/admin/sistemas-de-jogo', [
             'name' => 'test',
-            'genre' => 'Medieval Fantasy',
+            'genre' => 'Fantasia Medieval',
         ]);
 
         $response->assertRedirect('/admin/sistemas-de-jogo');
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('systems', [
             'name' => 'test',
-            'genre' => 'Medieval Fantasy',
+            'genre' => 'Fantasia Medieval',
         ]);
     }
 
@@ -63,11 +63,11 @@ class SystemCreationTest extends TestCase
         
         $response = $this->actingAs($user)->post('admin/sistemas-de-jogo', [
             'name' => 'test',
-            'genre' => 'Medieval Fantasy',
+            'genre' => 'Fantasia Medieval',
         ]);
 
         $response->assertStatus(403);
-        $this->assertDatabaseMissing('systems', ['name' => 'test', 'genre' => 'Medieval Fantasy']);
+        $this->assertDatabaseMissing('systems', ['name' => 'test', 'genre' => 'Fantasia Medieval']);
     }
 
     public function test_system_validation_throws_error_when_invalid_genre_input() : void
@@ -99,11 +99,11 @@ class SystemCreationTest extends TestCase
     {
         $admin = User::factory()->admin()->create();
         $response = $this->actingAs($admin)->post('/admin/sistemas-de-jogo', [
-            'genre' => 'Medieval Fantasy',
+            'genre' => 'Fantasia Medieval',
         ]);
 
         $response->assertSessionHasErrors('name');
         $response->assertRedirect();
-        $this->assertDatabaseMissing('systems', ['name' => null, 'genre' => 'Medieval Fantasy']);
+        $this->assertDatabaseMissing('systems', ['name' => null, 'genre' => 'Fantasia Medieval']);
     }
 }

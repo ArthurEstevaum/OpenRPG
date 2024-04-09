@@ -67,6 +67,7 @@ Route::controller(SystemController::class)
         
     Route::get('/', 'index')->name('index');
     Route::get('/criar', 'create')->name('create');
+    Route::get('/{id}', 'show')->name('show');
     Route::post('/', 'store')->name('store');
 });
 

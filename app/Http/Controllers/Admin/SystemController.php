@@ -6,10 +6,8 @@ use App\Enums\Genres;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SystemResource;
 use App\Models\System;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
@@ -65,9 +63,10 @@ class SystemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id) : InertiaResponse
     {
-        //
+        $system = System::find($id);
+        return Inertia::render('Admin/System/Show', ['system' => $system]);
     }
 
     /**

@@ -8,6 +8,7 @@ import InputSuccess from '@/Components/InputSuccess'
 export default function Index({ systems }) {
 
     const { flash } = usePage().props
+    console.log(systems);
 
     const [loadedData, loadMore, setLoadedData] = useLoadMore(systems, 'systems')
     const [searchedData, debouncedSearch] = useSearchFilter(systems, 'systems')
