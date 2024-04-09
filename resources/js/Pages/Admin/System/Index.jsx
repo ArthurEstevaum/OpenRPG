@@ -1,9 +1,13 @@
 import useLoadMore from '@/Hooks/useLoadMore'
 import useSearchFilter from '@/Hooks/useSearchFilter'
 import useDidUpdateEffect from '@/Hooks/useDidUpdateEffect'
+import { usePage } from '@inertiajs/react'
+import InputSuccess from '@/Components/InputSuccess'
 
 
 export default function Index({ systems }) {
+
+    const { flash } = usePage().props
 
     const [loadedData, loadMore, setLoadedData] = useLoadMore(systems, 'systems')
     const [searchedData, debouncedSearch] = useSearchFilter(systems, 'systems')
@@ -14,7 +18,8 @@ export default function Index({ systems }) {
     }, [searchedData])
 
     return (
-        <div>
+        <main>
+            <InputSuccess message={flash.success} />
             <input type="search" placeholder="Pesquise por nome ou gênero..." 
             onChange={debouncedSearch} />
 
@@ -27,6 +32,6 @@ export default function Index({ systems }) {
             
             {systems.links.next && <button onClick={loadMore} 
             className='border-2 rounded-md p-3 m-auto border-blue-500 text-blue-500 text-4xl'>Carregar mais</button>}
-        </div>
+        </main>
     )
 }
