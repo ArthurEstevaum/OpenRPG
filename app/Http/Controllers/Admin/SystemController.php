@@ -63,32 +63,41 @@ class SystemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) : InertiaResponse
+    public function show(System $system) : InertiaResponse
     {
-        $system = System::find($id);
         return Inertia::render('Admin/System/Show', ['system' => $system]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(System $system) : InertiaResponse
     {
-        //
+        return Inertia::render('Admin/System/Edit', ['system' => $system]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, System $system) : RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'genre' => [Rule::enum(Genres::class), 'required'],
+        ]);
+
+        System::where('id', '=', $system->id)->update([
+            'name' => $validated['name'],
+            'genre' => $validated['genre'],
+        ]);
+
+        return redirect(route('admin.system.show', $system->id));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(System $system)
     {
         //
     }

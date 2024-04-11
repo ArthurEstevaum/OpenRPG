@@ -9,7 +9,7 @@ export default function Show({ system, auth }) {
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title={system.name} />
-            <main className='text-center'>
+            <main className='text-center mt-10'>
                 <h1 className='text-3xl'>{system.name}</h1>
                 <h2 className='text-xl'>Gênero - {system.genre}</h2>
                 <p>Criado em: {createdAt.toLocaleDateString()} - Atualizado em: {updatedAt.toLocaleDateString()}</p>

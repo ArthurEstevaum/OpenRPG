@@ -67,7 +67,9 @@ Route::controller(SystemController::class)
         
     Route::get('/', 'index')->name('index');
     Route::get('/criar', 'create')->name('create');
-    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{system}', 'show')->name('show');
+    Route::get('/{system}/editar', 'edit')->name('edit');
+    Route::put('/{system}', 'update')->name('update');
     Route::post('/', 'store')->name('store');
 });
 
