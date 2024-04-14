@@ -17,7 +17,7 @@ class SystemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request) : InertiaResponse
     {
         $search = $request->input('search');
 
@@ -57,7 +57,7 @@ class SystemController extends Controller
             'genre' => $validated['genre'],
         ]);
 
-        return redirect(route('admin.system.index'))->with('success', 'Sistema criado com sucesso');
+        return redirect(route('admin.system.index'))->with('success', 'Sistema criado com sucesso.');
     }
 
     /**
@@ -91,14 +91,24 @@ class SystemController extends Controller
             'genre' => $validated['genre'],
         ]);
 
-        return redirect(route('admin.system.show', $system->id));
+        return redirect(route('admin.system.show', $system->id))->with('success', 'Sistema atualizado com sucesso.');
+    }
+
+    /**
+     * Show the page to confirm the deletion of the resource.
+     */
+    public function delete(System $system) : InertiaResponse
+    {
+        return Inertia::render('Admin/System/Delete', ['system' => $system]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(System $system)
+    public function destroy(System $system) : RedirectResponse
     {
-        //
+        System::destroy($system->id);
+
+        return redirect(route('admin.system.index'))->with('success', 'Sistema excluído com sucesso.');
     }
 }

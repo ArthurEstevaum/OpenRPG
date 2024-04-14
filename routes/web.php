@@ -60,6 +60,7 @@ Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect'])
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])
 ->name('auth.social.callback');
 
+//Rotas de controle de sistemas de jogo
 Route::controller(SystemController::class)
     ->prefix('admin/sistemas-de-jogo')
     ->middleware('admin')
@@ -69,8 +70,11 @@ Route::controller(SystemController::class)
     Route::get('/criar', 'create')->name('create');
     Route::get('/{system}', 'show')->name('show');
     Route::get('/{system}/editar', 'edit')->name('edit');
+    Route::get('/{system}/excluir', 'delete')->name('delete');
+    
     Route::put('/{system}', 'update')->name('update');
     Route::post('/', 'store')->name('store');
+    Route::delete('/{system}', 'destroy')->name('destroy');
 });
 
 Route::controller(ScenarioController::class)

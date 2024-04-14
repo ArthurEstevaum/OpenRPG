@@ -26,7 +26,7 @@ class SystemUpdateTest extends TestCase
         $response->assertStatus(200);
         $response->assertInertia(fn (AssertableInertia $page) => $page
         ->component('Admin/System/Edit')
-        ->has('system', 1)
+        ->has('system')
         ->where('system.id', $system->id)
         ->where('system.name', $system->name)
         ->where('system.genre', $system->genre));
