@@ -67,14 +67,4 @@ class TabletopTest extends TestCase
 
         $this->assertTrue($tabletop->scenario()->get()->contains($scenario));
     }
-
-    public function test_tabletops_belongs_to_many_subgenres() : void
-    {
-        $user = User::factory()->create();
-        $subgenres = Subgenre::factory()->create();
-
-        $tabletop = Tabletop::factory()->create(['owner_user_id' => $user->id]);
-
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $tabletop->subgenres()->get());
-    }
 }

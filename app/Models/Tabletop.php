@@ -39,13 +39,4 @@ class Tabletop extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
-
-    /**
-     * Returns all the subgenres which belongs to the tabletop
-     * @return BelongsToMany
-     */
-    public function subgenres() : BelongsToMany
-    {
-        return $this->belongsToMany(Subgenre::class)->withTimestamps();
-    }
 }
