@@ -12,6 +12,8 @@ class Scenario extends Model
 {
     use HasFactory, Searchable;
 
+    protected $fillable = ['name'];
+
     public function system() : BelongsTo
     {
         return $this->belongsTo(System::class);

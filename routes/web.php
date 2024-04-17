@@ -83,6 +83,14 @@ Route::controller(ScenarioController::class)
     ->name('admin.scenario.')->group(function() {
         
     Route::get('/', 'index')->name('index');
+    Route::get('/criar', 'create')->name('create');
+    Route::get('/{scenario}', 'show')->name('show');
+    Route::get('/{scenario}/editar', 'edit')->name('edit');
+    Route::get('/{scenario}/excluir', 'delete')->name('delete');
+
+    Route::post('/', 'store')->name('store');
+    Route::put('/{scenario}', 'update')->name('update');
+    Route::delete('/{scenario}', 'destroy')->name('destroy');
 });
 
 require __DIR__.'/auth.php';

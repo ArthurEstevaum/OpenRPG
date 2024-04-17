@@ -11,18 +11,18 @@ export default function Create({ auth }) {
 
     const { data, setData, post, processing, errors } = useForm({
         name: '',
-        genre: '',
+        system: '',
     })
 
     const submit = (e) => {
         e.preventDefault()
 
-        post(route('admin.system.store'))
+        post(route('admin.scenario.store'))
     }
 
     return (
         <AuthenticatedLayout user={auth.user}>
-            <Head title="Criar Sistema" />
+            <Head title="Criar Cenário" />
             <main className="w-4/5 sm:w-3/5 lg:w-2/5 m-auto mt-10">
                 <form onSubmit={submit}>
                     <div>
@@ -40,17 +40,17 @@ export default function Create({ auth }) {
                         <InputError message={errors.name} className="mt-2" />
                     </div>
                     <div className="mt-4">
-                        <InputLabel htmlFor="genre" value="Gênero" />
+                        <InputLabel htmlFor="system" value="Sistema" />
                         <TextInput
-                            id="genre"
+                            id="system"
                             type="text"
-                            name="genre"
-                            value={data.genre}
+                            name="system"
+                            value={data.system}
                             className="mt-1 block w-full"
-                            onChange={(e) => setData('genre', e.target.value)}
+                            onChange={(e) => setData('system', e.target.value)}
                             required
                         />
-                        <InputError message={errors.genre} className="mt-2" />
+                        <InputError message={errors.system} className="mt-2" />
                     </div>
                     <div className="flex items-center justify-end mt-4">
                         <PrimaryButton className="ml-4" disabled={processing}>

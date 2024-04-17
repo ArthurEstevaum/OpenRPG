@@ -82,6 +82,7 @@ class SystemUpdateTest extends TestCase
 
         $response->assertStatus(403);
         $this->assertDatabaseMissing('systems', [
+            'id' => $system->id,
             'name' => 'Dungeons and Dragons',
             'genre' => 'Fantasia Medieval',
         ]);
