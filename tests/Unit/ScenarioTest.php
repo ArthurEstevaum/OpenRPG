@@ -13,10 +13,9 @@ use Tests\TestCase;
 
 class ScenarioTest extends TestCase
 {
-
     use RefreshDatabase, WithFaker;
 
-     /**
+    /**
      * Checks if the columns of the table are correct.
      */
     public function test_scenario_database_has_expected_columns(): void
@@ -26,7 +25,7 @@ class ScenarioTest extends TestCase
         );
     }
 
-    public function test_scenario_has_many_tabletops() : void
+    public function test_scenario_has_many_tabletops(): void
     {
         $user = User::factory()->create();
 
@@ -39,7 +38,7 @@ class ScenarioTest extends TestCase
         $this->assertTrue($scenario->tabletops()->get()->contains($tabletop));
     }
 
-    public function test_scenario_belongs_to_a_system() : void
+    public function test_scenario_belongs_to_a_system(): void
     {
         $system = System::factory()->create();
 

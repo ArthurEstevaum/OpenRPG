@@ -2,16 +2,17 @@
 
 namespace Tests\Feature\Admin\Scenario;
 
+use App\Models\Scenario;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use App\Models\User;
-use App\Models\Scenario;
 use Inertia\Testing\AssertableInertia;
 use Tests\TestCase;
 
 class ScenarioIndexTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
+
     /**
      * A basic feature test example.
      */
@@ -25,14 +26,14 @@ class ScenarioIndexTest extends TestCase
         $response->assertStatus(200);
         $response->assertInertia(fn (AssertableInertia $page) => $page
             ->component('Admin/Scenario/Index')
-            ->has('scenarios', fn(AssertableInertia $page) => $page
+            ->has('scenarios', fn (AssertableInertia $page) => $page
                 ->where('meta.per_page', 12)
                 ->has('data')
                 ->etc())
         );
     }
 
-    public function test_non_admins_cannot_access_admin_scenario_index() : void
+    public function test_non_admins_cannot_access_admin_scenario_index(): void
     {
         $user = User::factory()->create();
 
@@ -41,7 +42,7 @@ class ScenarioIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_guests_are_redirected_to_login() : void
+    public function test_guests_are_redirected_to_login(): void
     {
         $response = $this->get('admin/cenarios-de-jogo');
 

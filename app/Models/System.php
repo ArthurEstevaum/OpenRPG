@@ -13,12 +13,12 @@ class System extends Model
 
     protected $fillable = ['name', 'genre'];
 
-    public function tabletops() : HasMany
+    public function tabletops(): HasMany
     {
         return $this->hasMany(Tabletop::class);
     }
 
-    public function scenarios() : HasMany
+    public function scenarios(): HasMany
     {
         return $this->hasMany(Scenario::class);
     }

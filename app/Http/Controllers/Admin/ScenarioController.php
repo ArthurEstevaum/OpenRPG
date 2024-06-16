@@ -16,16 +16,16 @@ class ScenarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request) : InertiaResponse
+    public function index(Request $request): InertiaResponse
     {
         $search = $request->input('search');
 
-        if(!$search) {
+        if (! $search) {
             $scenarios = Scenario::paginate(12);
         } else {
             $scenarios = Scenario::search($search)
-            ->paginate(12)
-            ->appends(['search' => $search, 'query' => null]);
+                ->paginate(12)
+                ->appends(['search' => $search, 'query' => null]);
         }
 
         return Inertia::render('Admin/Scenario/Index', [
@@ -36,7 +36,7 @@ class ScenarioController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : InertiaResponse
+    public function create(): InertiaResponse
     {
         return Inertia::render('Admin/Scenario/Create');
     }
@@ -44,17 +44,17 @@ class ScenarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'string|required|max:255',
-            'system' => 'string|required|exists:systems,name'
+            'system' => 'string|required|exists:systems,name',
         ]);
 
         $system = System::where('name', $validated['system'])->firstOrFail();
 
         $system->scenarios()->create([
-            'name' => $validated['name']
+            'name' => $validated['name'],
         ]);
 
         return redirect(route('admin.scenario.index'))->with('success', 'Cenário criado com sucesso');
@@ -63,31 +63,33 @@ class ScenarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Scenario $scenario) : InertiaResponse
+    public function show(Scenario $scenario): InertiaResponse
     {
         $scenario = $scenario->load('system');
+
         return Inertia::render('Admin/Scenario/Show', [
-            'scenario' => $scenario, 
+            'scenario' => $scenario,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Scenario $scenario) : InertiaResponse
+    public function edit(Scenario $scenario): InertiaResponse
     {
         $scenario->load('system');
+
         return Inertia::render('Admin/Scenario/Edit', ['scenario' => $scenario]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Scenario $scenario) : RedirectResponse
+    public function update(Request $request, Scenario $scenario): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'string|required|max:255',
-            'system' => 'string|required|exists:systems,name'
+            'system' => 'string|required|exists:systems,name',
         ]);
 
         $system = System::where('name', '=', $validated['system'])->firstOrFail();
@@ -104,7 +106,7 @@ class ScenarioController extends Controller
     /**
      * Show the page to confirm the deletion of the resource.
      */
-    public function delete(Scenario $scenario) : InertiaResponse
+    public function delete(Scenario $scenario): InertiaResponse
     {
         return Inertia::render('Admin/Scenario/Delete', ['scenario' => $scenario]);
     }
@@ -112,10 +114,10 @@ class ScenarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Scenario $scenario) : RedirectResponse
+    public function destroy(Scenario $scenario): RedirectResponse
     {
         Scenario::destroy($scenario->id);
 
-        return redirect(route('admin.scenario.index'))->with('Success', 'Cenário de jogo excluído com sucesso');
+        return redirect(route('admin.scenario.index'))->with('success', 'Cenário de jogo excluído com sucesso');
     }
 }

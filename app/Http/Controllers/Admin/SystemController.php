@@ -17,16 +17,16 @@ class SystemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request) : InertiaResponse
+    public function index(Request $request): InertiaResponse
     {
         $search = $request->input('search');
 
-        if(!$search) {
+        if (! $search) {
             $systems = System::paginate(12);
         } else {
             $systems = System::search($search)
-            ->paginate(12)
-            ->appends(['search' => $search, 'query' => null]);
+                ->paginate(12)
+                ->appends(['search' => $search, 'query' => null]);
         }
 
         return Inertia::render('Admin/System/Index', [
@@ -37,7 +37,7 @@ class SystemController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : InertiaResponse
+    public function create(): InertiaResponse
     {
         return Inertia::render('Admin/System/Create');
     }
@@ -45,7 +45,7 @@ class SystemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -63,7 +63,7 @@ class SystemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(System $system) : InertiaResponse
+    public function show(System $system): InertiaResponse
     {
         return Inertia::render('Admin/System/Show', ['system' => $system]);
     }
@@ -71,7 +71,7 @@ class SystemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(System $system) : InertiaResponse
+    public function edit(System $system): InertiaResponse
     {
         return Inertia::render('Admin/System/Edit', ['system' => $system]);
     }
@@ -79,7 +79,7 @@ class SystemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, System $system) : RedirectResponse
+    public function update(Request $request, System $system): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -97,7 +97,7 @@ class SystemController extends Controller
     /**
      * Show the page to confirm the deletion of the resource.
      */
-    public function delete(System $system) : InertiaResponse
+    public function delete(System $system): InertiaResponse
     {
         return Inertia::render('Admin/System/Delete', ['system' => $system]);
     }
@@ -105,7 +105,7 @@ class SystemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(System $system) : RedirectResponse
+    public function destroy(System $system): RedirectResponse
     {
         System::destroy($system->id);
 

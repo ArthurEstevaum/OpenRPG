@@ -36,23 +36,23 @@ class UserFactory extends Factory
         ]);
     }
 
-    public function socialiteGoogle() : static
+    public function socialiteGoogle(): static
     {
         return $this->state(fn (array $attributes) => [
             'password' => null,
             'provider_id' => random_int(1, 1000),
             'provider_name' => 'google',
-            'provider_avatar' => 'https://lh3.googleusercontent.com/a/ACg8ocL_gjb8WxHCgn77qq6179TkiQNhzbq3Nw7K9haMs3vf=s96-c'
+            'provider_avatar' => 'https://lh3.googleusercontent.com/a/ACg8ocL_gjb8WxHCgn77qq6179TkiQNhzbq3Nw7K9haMs3vf=s96-c',
         ]);
     }
 
-    public function socialiteGithub() : static
+    public function socialiteGithub(): static
     {
         return $this->state(fn (array $attributes) => [
             'password' => null,
             'provider_id' => random_int(1, 1000),
             'provider_name' => 'github',
-            'provider_avatar' => 'https://avatars.githubusercontent.com/u/91440878?v=4'
+            'provider_avatar' => 'https://avatars.githubusercontent.com/u/91440878?v=4',
         ]);
     }
 
@@ -62,7 +62,7 @@ class UserFactory extends Factory
             'name' => 'Arthur Estevão',
             'admin' => 1,
             'email' => env('ADMIN_EMAIL'),
-            'password' => env('ADMIN_PASSWORD')
+            'password' => env('ADMIN_PASSWORD'),
         ]);
     }
 }

@@ -14,12 +14,12 @@ class Scenario extends Model
 
     protected $fillable = ['name'];
 
-    public function system() : BelongsTo
+    public function system(): BelongsTo
     {
         return $this->belongsTo(System::class);
     }
 
-    public function tabletops() : HasMany
+    public function tabletops(): HasMany
     {
         return $this->hasMany(Tabletop::class);
     }

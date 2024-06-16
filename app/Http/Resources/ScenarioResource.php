@@ -14,7 +14,8 @@ class ScenarioResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $format = "d-m-Y";
+        $format = 'd-m-Y';
+
         return [
             'id' => $this->id,
             'name' => $this->name,

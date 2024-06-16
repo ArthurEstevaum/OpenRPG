@@ -11,21 +11,22 @@ use Tests\TestCase;
 class SystemCreationTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
+
     /**
      * A basic feature test example.
      */
     public function test_admin_system_create_form_is_displayed(): void
     {
         $admin = User::factory()->admin()->create();
-        
+
         $response = $this->actingAs($admin)->get('/admin/sistemas-de-jogo/criar');
 
         $response->assertStatus(200);
         $response->assertInertia(fn (AssertableInertia $page) => $page
-        ->component('Admin/System/Create'));
+            ->component('Admin/System/Create'));
     }
 
-    public function test_non_admins_cannot_access_admin_system_index() : void
+    public function test_non_admins_cannot_access_admin_system_index(): void
     {
         $user = User::factory()->create();
 
@@ -34,14 +35,14 @@ class SystemCreationTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_guests_are_redirected_to_login() : void
+    public function test_guests_are_redirected_to_login(): void
     {
         $response = $this->get('admin/sistemas-de-jogo/criar');
 
         $response->assertRedirect('/login');
     }
 
-    public function test_systems_can_be_created() : void
+    public function test_systems_can_be_created(): void
     {
         $admin = User::factory()->admin()->create();
         $response = $this->actingAs($admin)->post('/admin/sistemas-de-jogo', [
@@ -57,10 +58,10 @@ class SystemCreationTest extends TestCase
         ]);
     }
 
-    public function test_unauthorized_users_cannot_create_system() : void
+    public function test_unauthorized_users_cannot_create_system(): void
     {
         $user = User::factory()->create();
-        
+
         $response = $this->actingAs($user)->post('admin/sistemas-de-jogo', [
             'name' => 'test',
             'genre' => 'Fantasia Medieval',
@@ -70,7 +71,7 @@ class SystemCreationTest extends TestCase
         $this->assertDatabaseMissing('systems', ['name' => 'test', 'genre' => 'Fantasia Medieval']);
     }
 
-    public function test_system_validation_throws_error_when_invalid_genre_input() : void
+    public function test_system_validation_throws_error_when_invalid_genre_input(): void
     {
         $admin = User::factory()->admin()->create();
         $response = $this->actingAs($admin)->post('/admin/sistemas-de-jogo', [
@@ -83,7 +84,7 @@ class SystemCreationTest extends TestCase
         $this->assertDatabaseMissing('systems', ['name' => 'test', 'genre' => 'aleatory genre']);
     }
 
-    public function test_system_validation_throws_error_when_null_genre_input() : void
+    public function test_system_validation_throws_error_when_null_genre_input(): void
     {
         $admin = User::factory()->admin()->create();
         $response = $this->actingAs($admin)->post('/admin/sistemas-de-jogo', [
@@ -95,7 +96,7 @@ class SystemCreationTest extends TestCase
         $this->assertDatabaseMissing('systems', ['name' => 'test']);
     }
 
-    public function test_system_validation_throws_error_when_null_name_input() : void
+    public function test_system_validation_throws_error_when_null_name_input(): void
     {
         $admin = User::factory()->admin()->create();
         $response = $this->actingAs($admin)->post('/admin/sistemas-de-jogo', [

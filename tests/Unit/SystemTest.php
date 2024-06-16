@@ -13,7 +13,6 @@ use Tests\TestCase;
 
 class SystemTest extends TestCase
 {
-
     use RefreshDatabase, WithFaker;
 
     /**
@@ -26,18 +25,18 @@ class SystemTest extends TestCase
         );
     }
 
-    public function test_system_has_many_tabletops() : void
+    public function test_system_has_many_tabletops(): void
     {
         $user = User::factory()->create();
 
         $system = System::factory()->create();
         $tabletop = Tabletop::factory()->create(['owner_user_id' => $user->id,
-        'system_id' => $system->id]);
+            'system_id' => $system->id]);
 
         $this->assertTrue($system->tabletops()->get()->contains($tabletop));
     }
 
-    public function test_system_has_many_scenarios() : void
+    public function test_system_has_many_scenarios(): void
     {
         $system = System::factory()->create();
         $scenario = Scenario::factory()->create(['system_id' => $system->id]);

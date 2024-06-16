@@ -12,6 +12,7 @@ use Tests\TestCase;
 class SystemDeletionTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
+
     /**
      * A basic feature test example.
      */
@@ -24,13 +25,13 @@ class SystemDeletionTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(fn (AssertableInertia $page) => $page
-        ->component('Admin/System/Delete')
-        ->has('system')
-        ->where('system.id', $system->id)
-        ->where('system.name', $system->name));
+            ->component('Admin/System/Delete')
+            ->has('system')
+            ->where('system.id', $system->id)
+            ->where('system.name', $system->name));
     }
 
-    public function test_non_admins_cannot_access_delete_confirmation_page() : void
+    public function test_non_admins_cannot_access_delete_confirmation_page(): void
     {
         $user = User::factory()->create();
         $system = System::factory()->create();
@@ -40,16 +41,16 @@ class SystemDeletionTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_guest_are_redirected_to_login() : void
+    public function test_guest_are_redirected_to_login(): void
     {
         $system = System::factory()->create();
 
         $response = $this->get("admin/sistemas-de-jogo/$system->id/excluir");
 
-        $response->assertRedirect("/login");
+        $response->assertRedirect('/login');
     }
 
-    public function test_systems_can_be_deleted() : void
+    public function test_systems_can_be_deleted(): void
     {
         $admin = User::factory()->admin()->create();
         $system = System::factory()->create();
@@ -58,11 +59,11 @@ class SystemDeletionTest extends TestCase
 
         $response->assertRedirect(route('admin.system.index'));
         $this->assertDatabaseMissing('systems', [
-            'id' => $system->id
+            'id' => $system->id,
         ]);
     }
 
-    public function test_unauthorized_users_cannot_delete_systems() : void
+    public function test_unauthorized_users_cannot_delete_systems(): void
     {
         $user = User::factory()->create();
         $system = System::factory()->create();

@@ -11,8 +11,8 @@ use Tests\TestCase;
 
 class SystemUpdateTest extends TestCase
 {
-
     use RefreshDatabase, WithFaker;
+
     /**
      * A basic feature test example.
      */
@@ -25,14 +25,14 @@ class SystemUpdateTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(fn (AssertableInertia $page) => $page
-        ->component('Admin/System/Edit')
-        ->has('system')
-        ->where('system.id', $system->id)
-        ->where('system.name', $system->name)
-        ->where('system.genre', $system->genre));
+            ->component('Admin/System/Edit')
+            ->has('system')
+            ->where('system.id', $system->id)
+            ->where('system.name', $system->name)
+            ->where('system.genre', $system->genre));
     }
 
-    public function test_non_admins_cannot_access_edit_page() : void
+    public function test_non_admins_cannot_access_edit_page(): void
     {
         $user = User::factory()->create();
         $system = System::factory()->create();
@@ -42,16 +42,16 @@ class SystemUpdateTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_guest_are_redirected_to_login() : void
+    public function test_guest_are_redirected_to_login(): void
     {
         $system = System::factory()->create();
 
         $response = $this->get("admin/sistemas-de-jogo/$system->id/editar");
 
-        $response->assertRedirect("/login");
+        $response->assertRedirect('/login');
     }
 
-    public function test_systems_can_be_updated() : void
+    public function test_systems_can_be_updated(): void
     {
         $admin = User::factory()->admin()->create();
         $system = System::factory()->create();
@@ -70,10 +70,10 @@ class SystemUpdateTest extends TestCase
         ]);
     }
 
-    public function test_unauthorized_users_cannot_update_systems() : void
+    public function test_unauthorized_users_cannot_update_systems(): void
     {
         $user = User::factory()->create();
-        $system  = System::factory()->create();
+        $system = System::factory()->create();
 
         $response = $this->actingAs($user)->put("/admin/sistemas-de-jogo/$system->id", [
             'name' => 'Dungeons and Dragons',
@@ -88,7 +88,7 @@ class SystemUpdateTest extends TestCase
         ]);
     }
 
-    public function test_system_validation_throws_error_when_invalid_inputs() : void
+    public function test_system_validation_throws_error_when_invalid_inputs(): void
     {
         $admin = User::factory()->admin()->create();
         $system = System::factory()->create();

@@ -7,8 +7,6 @@ import { useForm, usePage, Head } from "@inertiajs/react"
 
 export default function Create({ auth }) {
 
-    const { flash } = usePage().props
-
     const { data, setData, post, processing, errors } = useForm({
         name: '',
         genre: '',

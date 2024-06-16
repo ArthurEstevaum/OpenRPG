@@ -5,7 +5,6 @@ export default function Show({ scenario, auth }) {
 
     const createdAt = new Date(scenario.created_at);
     const updatedAt = new Date(scenario.updated_at);
-    console.log(scenario);
 
     return (
         <AuthenticatedLayout user={auth.user}>

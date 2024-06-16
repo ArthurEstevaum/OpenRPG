@@ -11,8 +11,8 @@ use Tests\TestCase;
 
 class SystemIndexTest extends TestCase
 {
-
     use RefreshDatabase, WithFaker;
+
     /**
      * A basic feature test example.
      */
@@ -26,14 +26,14 @@ class SystemIndexTest extends TestCase
         $response->assertStatus(200);
         $response->assertInertia(fn (AssertableInertia $page) => $page
             ->component('Admin/System/Index')
-            ->has('systems', fn(AssertableInertia $page) => $page
+            ->has('systems', fn (AssertableInertia $page) => $page
                 ->where('meta.per_page', 12)
                 ->has('data')
                 ->etc())
         );
     }
 
-    public function test_non_admins_cannot_access_admin_system_index() : void
+    public function test_non_admins_cannot_access_admin_system_index(): void
     {
         $user = User::factory()->create();
 
@@ -42,7 +42,7 @@ class SystemIndexTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_guests_are_redirected_to_login() : void
+    public function test_guests_are_redirected_to_login(): void
     {
         $response = $this->get('admin/sistemas-de-jogo');
 

@@ -4,12 +4,10 @@ namespace Database\Factories;
 
 use App\Enums\Frequency;
 use App\Enums\Genres;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Enums\Provinces;
-use App\Enums\SubGenres;
 use App\Enums\Levels;
+use App\Enums\Provinces;
 use App\Enums\WeekDays;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tabletop>
@@ -31,7 +29,7 @@ class TabletopFactory extends Factory
             'frequency' => Frequency::getRandomValue(),
             'weekday' => WeekDays::getRandomValue(),
             'horary' => fake()->time(),
-            'next_session' => fake()->dateTimeBetween('+0 days','+1 years'),
+            'next_session' => fake()->dateTimeBetween('+0 days', '+1 years'),
             'genre' => Genres::getRandomValue(),
             'level' => Levels::getRandomValue(),
             'province' => Provinces::getRandomValue(),

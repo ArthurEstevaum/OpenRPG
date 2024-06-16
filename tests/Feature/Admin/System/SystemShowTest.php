@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Admin\System;
 
-use App\Models\User;
 use App\Models\System;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Inertia\Testing\AssertableInertia;
@@ -11,8 +11,8 @@ use Tests\TestCase;
 
 class SystemShowTest extends TestCase
 {
-
     use RefreshDatabase, WithFaker;
+
     /**
      * A basic feature test example.
      */
@@ -25,13 +25,13 @@ class SystemShowTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(fn (AssertableInertia $page) => $page
-        ->component('Admin/System/Show')
-        ->where('system.id', $system->id)
-        ->where('system.name', $system->name)
-        ->where('system.genre', $system->genre));
+            ->component('Admin/System/Show')
+            ->where('system.id', $system->id)
+            ->where('system.name', $system->name)
+            ->where('system.genre', $system->genre));
     }
 
-    public function test_non_admins_cannot_access_system_page() : void
+    public function test_non_admins_cannot_access_system_page(): void
     {
         $user = User::factory()->create();
         $system = System::factory()->create();
@@ -41,12 +41,12 @@ class SystemShowTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function test_guest_are_redirected_to_login() : void
+    public function test_guest_are_redirected_to_login(): void
     {
         $system = System::factory()->create();
 
         $response = $this->get("admin/sistemas-de-jogo/$system->id");
 
-        $response->assertRedirect("/login");
+        $response->assertRedirect('/login');
     }
 }

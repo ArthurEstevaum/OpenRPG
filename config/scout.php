@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Scenario;
 use App\Models\System;
 use App\Models\User;
-use App\Models\Scenario;
 
 return [
 
@@ -138,7 +138,7 @@ return [
         'key' => env('MEILISEARCH_KEY'),
         'index-settings' => [
             User::class => [
-                'filterableAttributes'=> ['id', 'name', 'email'],
+                'filterableAttributes' => ['id', 'name', 'email'],
                 'sortableAttributes' => ['created_at'],
             ],
             System::class => [

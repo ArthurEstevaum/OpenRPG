@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tabletop_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(table:'users')->cascadeOnDelete();
-            $table->foreignId('tabletop_id')->constrained(table:'tabletops')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained(table: 'users')->cascadeOnDelete();
+            $table->foreignId('tabletop_id')->constrained(table: 'tabletops')->cascadeOnDelete();
             $table->timestamps();
         });
     }
