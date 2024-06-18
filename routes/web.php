@@ -32,6 +32,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/admin', function () {
+    return Inertia::render('Admin/Dashboard');
+})->middleware('admin')->name('admin.dashboard');
+
 Route::get('/define-password', function () {
     return Inertia::render('Profile/DefinePassword');
 })->middleware(['auth'])->name('define-password');
