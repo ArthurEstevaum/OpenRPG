@@ -1,15 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\ScenarioController;
+use App\Http\Controllers\Admin\SystemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
-use App\Models\Tabletop;
-use App\Models\User;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 use Inertia\Inertia;
 
 /*
@@ -36,7 +32,11 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/define-password', function() {
+Route::get('/admin', function () {
+    return Inertia::render('Admin/Dashboard');
+})->middleware('admin')->name('admin.dashboard');
+
+Route::get('/define-password', function () {
     return Inertia::render('Profile/DefinePassword');
 })->middleware(['auth'])->name('define-password');
 
@@ -55,12 +55,39 @@ Route::middleware('auth')->group(function () {
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])
-->name('auth.social.callback');
+    ->name('auth.social.callback');
 
-Route::middleware('admin')->group(function () {
-    Route::get('/adminDashboard', function() {
-        return 'Only admins can see that';
-    })->name('admin.dashboard');
-});
+//Rotas de controle de sistemas de jogo
+Route::controller(SystemController::class)
+    ->prefix('admin/sistemas-de-jogo')
+    ->middleware('admin')
+    ->name('admin.system.')->group(function () {
+
+        Route::get('/', 'index')->name('index');
+        Route::get('/criar', 'create')->name('create');
+        Route::get('/{system}', 'show')->name('show');
+        Route::get('/{system}/editar', 'edit')->name('edit');
+        Route::get('/{system}/excluir', 'delete')->name('delete');
+
+        Route::put('/{system}', 'update')->name('update');
+        Route::post('/', 'store')->name('store');
+        Route::delete('/{system}', 'destroy')->name('destroy');
+    });
+
+Route::controller(ScenarioController::class)
+    ->prefix('admin/cenarios-de-jogo')
+    ->middleware('admin')
+    ->name('admin.scenario.')->group(function () {
+
+        Route::get('/', 'index')->name('index');
+        Route::get('/criar', 'create')->name('create');
+        Route::get('/{scenario}', 'show')->name('show');
+        Route::get('/{scenario}/editar', 'edit')->name('edit');
+        Route::get('/{scenario}/excluir', 'delete')->name('delete');
+
+        Route::post('/', 'store')->name('store');
+        Route::put('/{scenario}', 'update')->name('update');
+        Route::delete('/{scenario}', 'destroy')->name('destroy');
+    });
 
 require __DIR__.'/auth.php';

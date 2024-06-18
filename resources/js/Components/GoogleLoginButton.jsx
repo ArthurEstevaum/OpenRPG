@@ -1,6 +1,6 @@
 export default function GoogleLoginButton({ children }) {
     return (
-        <div className="flex items-center align-middle justify-center rounded-md shadow-md p-3 hover:ring-2 cursor-pointer hover:transition ease-in-out duration-300">
+        <div className="flex items-center align-middle justify-center rounded-md shadow-md p-3 hover:ring-2 cursor-pointer hover:transition ease-in-out duration-300 dark:text-gray-200">
             <svg viewBox="0 0 48 48" className="inline w-5">
             <title>Google Logo</title>
                 <clipPath id="g">

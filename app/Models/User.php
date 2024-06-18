@@ -5,16 +5,16 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -52,28 +52,29 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Returns user role.
-     * @return bool
      */
-    public function isAdmin() : bool
+    public function isAdmin(): bool
     {
+        if ($this->admin == null) {
+            return false;
+        }
+
         return $this->admin;
     }
 
     /**
      * The relation that returns the tabletops which the user owns.
-     * @return HasMany
      */
-    public function owns_tabletops() : HasMany
+    public function owns_tabletops(): HasMany
     {
         return $this->hasMany(Tabletop::class, 'owner_user_id');
     }
 
     /**
      * The relation that returns all the tabletops which the user belongs.
-     * @return BelongsToMany
      */
-    public function tabletops() : BelongsToMany
+    public function tabletops(): BelongsToMany
     {
-        return $this->belongsToMany(related:Tabletop::class)->withTimestamps();
+        return $this->belongsToMany(related: Tabletop::class)->withTimestamps();
     }
 }
