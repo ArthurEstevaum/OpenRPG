@@ -12,6 +12,20 @@ class Tabletop extends Model
 {
     use HasFactory, Searchable;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'level',
+        'genre',
+        'city',
+        'province',
+        'next_session',
+        'frequency',
+        'horary',
+        'weekday',
+        'presencial',
+    ];
+
     public function system(): BelongsTo
     {
         return $this->belongsTo(System::class);

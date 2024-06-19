@@ -23,7 +23,7 @@ class TabletopFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'description' => fake()->text(1000),
+            'description' => fake()->text(900),
             'city' => fake()->city(),
             'presencial' => fake()->boolean(),
             'frequency' => Frequency::getRandomValue(),
