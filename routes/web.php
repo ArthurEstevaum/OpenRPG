@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ScenarioController;
 use App\Http\Controllers\Admin\SystemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\TabletopController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -56,6 +57,15 @@ Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect'])
 
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])
     ->name('auth.social.callback');
+
+Route::controller(TabletopController::class)
+    ->prefix('mesas')
+    ->middleware(['auth', 'verified'])
+    ->name('tabletops.')->group(function () {
+        Route::get('/criar', 'create')->name('create');
+
+        Route::post('/', 'store')->name('store');
+    });
 
 //Rotas de controle de sistemas de jogo
 Route::controller(SystemController::class)
