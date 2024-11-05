@@ -2,8 +2,8 @@ import InputError from "@/Components/InputError"
 import InputLabel from "@/Components/InputLabel"
 import TextInput from "@/Components/TextInput"
 import PrimaryButton from "@/Components/PrimaryButton"
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
 import { useForm, usePage, Head } from "@inertiajs/react"
+import AdminLayout from "@/Layouts/AdminLayout"
 
 export default function Create({ auth }) {
 
@@ -19,7 +19,7 @@ export default function Create({ auth }) {
     }
 
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <AdminLayout user={auth.user}>
             <Head title="Criar Sistema" />
             <main className="w-4/5 sm:w-3/5 lg:w-2/5 m-auto mt-10">
                 <form onSubmit={submit}>
@@ -57,6 +57,6 @@ export default function Create({ auth }) {
                     </div>
                 </form>
             </main>
-        </AuthenticatedLayout>
+        </AdminLayout>
     )
 }

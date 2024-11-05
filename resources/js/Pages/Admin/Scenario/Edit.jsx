@@ -1,4 +1,4 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import AdminLayout from "@/Layouts/AdminLayout";
 import { Head, usePage, useForm, router } from "@inertiajs/react"
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
@@ -22,7 +22,7 @@ export default function Edit({ scenario, auth }) {
     }
 
     return (
-        <AuthenticatedLayout user={auth.user} >
+        <AdminLayout user={auth.user} >
             <Head title="Editar cenário" />
             <main className="w-4/5 sm:w-3/5 lg:w-2/5 m-auto mt-10">
                 <form onSubmit={submit}>
@@ -60,6 +60,6 @@ export default function Edit({ scenario, auth }) {
                     </div>
                 </form>
             </main>
-        </AuthenticatedLayout>
+        </AdminLayout>
     )
 }

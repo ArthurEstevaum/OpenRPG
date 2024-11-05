@@ -1,4 +1,4 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
+import AdminLayout from "@/Layouts/AdminLayout";
 import { Head } from "@inertiajs/react"
 
 export default function Show({ scenario, auth }) {
@@ -7,7 +7,7 @@ export default function Show({ scenario, auth }) {
     const updatedAt = new Date(scenario.updated_at);
 
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <AdminLayout user={auth.user}>
             <Head title={scenario.name} />
             <main className='text-center mt-10'>
                 <h1 className='text-3xl'>{scenario.name}</h1>
@@ -15,6 +15,6 @@ export default function Show({ scenario, auth }) {
                 <h2 className='text-xl'>Gênero - {scenario.system.genre}</h2>
                 <p>Criado em: {createdAt.toLocaleDateString()} - Atualizado em: {updatedAt.toLocaleDateString()}</p>
             </main>
-        </AuthenticatedLayout>
+        </AdminLayout>
     )
 }

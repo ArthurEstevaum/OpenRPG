@@ -1,6 +1,6 @@
 import { Head, usePage, useForm } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
+import AdminLayout from '@/Layouts/AdminLayout';
 
 export default function Delete({ auth, scenario }) {
 
@@ -14,7 +14,7 @@ export default function Delete({ auth, scenario }) {
     }
 
     return (
-        <AuthenticatedLayout user={auth.user} >
+        <AdminLayout user={auth.user} >
             <Head title="Excluir cenário de jogo" />
             <main className="w-4/5 sm:w-3/5 lg:w-2/5 m-auto mt-10 bg-white p-5 rounded-lg">
                 <form onSubmit={submit}>
@@ -26,6 +26,6 @@ export default function Delete({ auth, scenario }) {
                     </div>
                 </form>
              </main>
-        </AuthenticatedLayout>
+        </AdminLayout>
     )
 }

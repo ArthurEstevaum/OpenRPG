@@ -1,9 +1,9 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage, useForm } from "@inertiajs/react"
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
+import AdminLayout from "@/Layouts/AdminLayout";
 
 export default function Edit({ system, auth }) {
 
@@ -22,7 +22,7 @@ export default function Edit({ system, auth }) {
     }
 
     return (
-        <AuthenticatedLayout user={auth.user} >
+        <AdminLayout user={auth.user} >
             <Head title="Editar sistema" />
             <main className="w-4/5 sm:w-3/5 lg:w-2/5 m-auto mt-10">
                 <form onSubmit={submit}>
@@ -60,6 +60,6 @@ export default function Edit({ system, auth }) {
                     </div>
                 </form>
             </main>
-        </AuthenticatedLayout>
+        </AdminLayout>
     )
 }
