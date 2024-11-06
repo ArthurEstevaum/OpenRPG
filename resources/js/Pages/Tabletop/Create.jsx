@@ -1,4 +1,3 @@
-import MedievalButton from "@/Components/MedievalButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Create({ auth }) {
@@ -10,7 +9,6 @@ export default function Create({ auth }) {
                     <input type="text" name="name" />
                 </form>
             </main>
-            <MedievalButton />
         </AuthenticatedLayout>
     )
 }
