@@ -48,7 +48,7 @@ class TabletopController extends Controller
             'description' => ['string', 'max:1000', 'required'],
             'presencial' => ['boolean', 'required'],
         ]);
-        
+
         $userWithTabletop = $request->user()->load('owns_tabletops');
         $userWithTabletop->owns_tabletops()->create($validated);
 
